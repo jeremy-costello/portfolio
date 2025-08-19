@@ -57,21 +57,43 @@ const ProjectModal = ({ project, onClose }: { project:any; onClose:()=>void }) =
         <Box sx={{display:'flex',flexWrap:'wrap',gap:1,mb:3}}>
           {project.tech.map((tech:string)=><TechChip key={tech} label={tech} size="small"/>)}
         </Box>
-        {project.demoLink?(
-          <Button href={project.demoLink} target="_blank" rel="noopener noreferrer" startIcon={<OpenInNewIcon/>}
-            sx={{color:'cyan.main',textTransform:'none','&:hover':{color:'cyan.light',backgroundColor:'rgba(0,188,212,0.08)'}}}>
-            Open Project Demo
-          </Button>
-        ):project.codeLink?(
-          <Button href={project.codeLink} target="_blank" rel="noopener noreferrer" startIcon={<OpenInNewIcon/>}
-            sx={{color:'cyan.main',textTransform:'none','&:hover':{color:'cyan.light',backgroundColor:'rgba(0,188,212,0.08)'}}}>
-            View Code
-          </Button>
-        ):(
-          <Typography variant="body2" sx={{color:'grey.400',fontStyle:'italic'}}>
-            {project.demoNote||project.codeNote||"Demo/Code unavailable"}
-          </Typography>
-        )}
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 3 }}>
+          {project.demoLink && (
+            <Button
+              href={project.demoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              startIcon={<OpenInNewIcon />}
+              sx={{
+                color: 'cyan.main',
+                textTransform: 'none',
+                '&:hover': { color: 'cyan.light', backgroundColor: 'rgba(0,188,212,0.08)' },
+              }}
+            >
+              Open Project Demo
+            </Button>
+          )}
+          {project.codeLink && (
+            <Button
+              href={project.codeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              startIcon={<OpenInNewIcon />}
+              sx={{
+                color: 'cyan.main',
+                textTransform: 'none',
+                '&:hover': { color: 'cyan.light', backgroundColor: 'rgba(0,188,212,0.08)' },
+              }}
+            >
+              View Project Code
+            </Button>
+          )}
+          {!project.demoLink && !project.codeLink && (
+            <Typography variant="body2" sx={{ color: 'grey.400', fontStyle: 'italic' }}>
+              {project.demoNote || project.codeNote || 'Demo/Code unavailable'}
+            </Typography>
+          )}
+        </Box>
       </DialogContent>
     </StyledDialog>
   );

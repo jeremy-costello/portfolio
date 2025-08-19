@@ -20,10 +20,10 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 const StyledButton = styled(Button)(({ theme }) => ({
   color: theme.palette.common.white,
   '&:hover': {
-    color: theme.palette.cyan?.main || theme.palette.info.main,
+    color: theme.palette.info.main,
   },
   '&.active': {
-    color: theme.palette.cyan?.main || theme.palette.info.main,
+    color: theme.palette.info.main,
   },
 }));
 

@@ -25,12 +25,13 @@ export const projects = [
     id: 3,
     title: "In-Browser RAG Chatbot",
     description: "Retrieval-augmented generation chatbot running completely in the browser.",
-    details: "Built a fully in-browser RAG chatbot. Semantic search using PGlite and pgvector. Quantized LLM inference using Wllama.",
+    details: "Built a fully in-browser RAG chatbot. Semantic search using PGlite and pgvector. Quantized LLM inference using Wllama. Project code is for my personal website, which this is a small part of.",
     tech: ["React", "TS/JS", "Wllama", "PostgreSQL", "PGlite", "pgvector"],
     thumbnailUrl: "/projects/rag-chat-personal/thumbnail.jpg",
     mediaUrls: ["/projects/rag-chat-personal/demo-video.mp4"],
     mediaType: "video",
     demoLink: "https://jeremy-costello.github.io/chat",
+    codeLink: "https://github.com/jeremy-costello/jeremy-costello.github.io"
   },
   {
     id: 4,
@@ -52,5 +53,17 @@ export const projects = [
     thumbnailUrl: "/projects/cesium/thumbnail.jpg",
     mediaType: "component",
     codeLink: "https://github.com/jeremy-costello/stac-to-3d",
+  },
+    {
+    id: 6,
+    title: "OGC API - DGGS Draft Semantic Search",
+    description: "Semantic search app running completely in the browser.",
+    details: "Built a fully in-browser semantic search engine to help me learn about the OGC API - DGGS draft specification. It may take a little while for the project demo to load, as it has to download the embedding model (~85MB).",
+    tech: ["Python", "Llama.cpp", "React", "TS/JS", "Wllama", "PostgreSQL", "PGlite", "pgvector", "Beautiful Soup"],
+    thumbnailUrl: "/projects/dggs-draft-search/thumbnail.jpg",
+    mediaType: "image",
+    mediaUrls: ["/projects/dggs-draft-search/demo-picture.jpg"],
+    demoLink: "https://jeremy-costello.github.io/dggs-draft-search",
+    codeLink: "https://github.com/jeremy-costello/dggs-draft-search",
   },
 ];

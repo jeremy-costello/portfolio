@@ -1,8 +1,8 @@
 import HeroSection from './sections/HeroSection';
 import AboutSection from './sections/AboutSection';
 import ProjectsSection from './sections/ProjectsSection';
-import ExperienceSection from './sections/ExperienceSection';
-import SkillsSection from './sections/SkillsSection';
+// import ExperienceSection from './sections/ExperienceSection';
+// import SkillsSection from './sections/SkillsSection';
 import ContactSection from './sections/ContactSection';
 import Navigation from './Navigation';
 
@@ -14,8 +14,8 @@ const Portfolio = () => {
       <HeroSection />
       <AboutSection />
       <ProjectsSection />
-      <ExperienceSection />
-      <SkillsSection />
+      {/* <ExperienceSection />
+      <SkillsSection /> */}
       <ContactSection />
     </div>
   );

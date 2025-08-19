@@ -31,7 +31,7 @@ const ProjectCard = styled(Card)(({ theme }) => ({
   transition: 'all 0.3s ease',
   '&:hover': {
     transform: 'translateY(-8px)',
-    boxShadow: `0 20px 40px ${theme.palette.cyan?.main}20` || `0 20px 40px ${theme.palette.info.main}20`,
+    boxShadow: `0 20px 40px ${theme.palette.info.main}20`,
   },
   overflow: 'hidden',
 }));

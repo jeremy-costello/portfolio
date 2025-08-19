@@ -143,7 +143,7 @@ const ContactSection = () => {
                     Email
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'grey.400' }}>
-                    your.email@example.com
+                    jeremy.costello@outlook.com
                   </Typography>
                 </Box>
               </ContactInfoBox>
@@ -157,7 +157,7 @@ const ContactSection = () => {
                     Phone
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'grey.400' }}>
-                    +1 (555) 123-4567
+                    +1 (709) 693-2906
                   </Typography>
                 </Box>
               </ContactInfoBox>
@@ -171,19 +171,31 @@ const ContactSection = () => {
                     Location
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'grey.400' }}>
-                    Your City, Country
+                    Halifax, Nova Scotia, Canada
                   </Typography>
                 </Box>
               </ContactInfoBox>
             </Box>
             
             <Box sx={{ display: 'flex', gap: 2 }}>
-              <SocialIconButton href="#" aria-label="GitHub">
-                <GitHubIcon sx={{ color: 'white' }} />
-              </SocialIconButton>
-              <SocialIconButton href="#" aria-label="LinkedIn">
-                <LinkedInIcon sx={{ color: 'white' }} />
-              </SocialIconButton>
+              <a
+                href="https://github.com/jeremy-costello"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <SocialIconButton aria-label="GitHub">
+                  <GitHubIcon sx={{ color: "white" }} />
+                </SocialIconButton>
+              </a>
+              <a
+                href="https://linkedin.com/in/jeremy-costello"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <SocialIconButton aria-label="GitHub">
+                  <LinkedInIcon sx={{ color: "white" }} />
+                </SocialIconButton>
+              </a>
             </Box>
           </Grid>
           
