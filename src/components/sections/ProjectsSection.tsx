@@ -6,7 +6,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Chip,
   Button,
 } from '@mui/material';
@@ -128,10 +127,10 @@ const ProjectsSection = () => {
                       {project.mediaType === "video" || project.mediaType === "gif" ? (
                         <>
                           <PlayArrowIcon sx={{ fontSize: 32 }} />
-                          <Typography variant="h6">View Demo</Typography>
+                          <Typography variant="h6">View Demo Video</Typography>
                         </>
                       ) : (
-                        <Typography variant="h6">View Project</Typography>
+                        <Typography variant="h6">View Project Overview</Typography>
                       )}
                     </OverlayContent>
                   </MediaOverlay>
