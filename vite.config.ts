@@ -6,6 +6,7 @@ const cesiumSource = 'node_modules/cesium/Build/Cesium'
 const cesiumBaseUrl = 'cesiumStatic'
 
 export default defineConfig({
+  base: '/portfolio/',
   plugins: [
     react(),
     viteStaticCopy({
