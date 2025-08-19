@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box, Typography, Avatar, Fade, Zoom } from '@mui/material';
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
 import { styled, keyframes } from '@mui/material/styles';
+import { BASE_URL } from '../../data/Constants';
 
 const float = keyframes`0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}`;
 const pulse = keyframes`0%,100%{opacity:.2;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}`;
@@ -60,7 +61,7 @@ export default function HeroSection(){
         <Box sx={{textAlign:'center',zIndex:10,px:3}}>
           <Zoom in={visible} timeout={1000}>
             <GlowWrapper>
-              <Avatar src="/images/headshot.jpg" alt="Jeremy Costello" sx={{width:256,height:256}}/>
+              <Avatar src={`${BASE_URL}/images/headshot.jpg`} alt="Jeremy Costello" sx={{width:256,height:256}}/>
             </GlowWrapper>
           </Zoom>
           <GradientText variant="h1" sx={{fontSize:{xs:'3rem',md:'5rem'},fontWeight:'bold',mb:3}}>

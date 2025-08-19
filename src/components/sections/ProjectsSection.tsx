@@ -16,6 +16,7 @@ import {
 import { styled } from '@mui/material/styles';
 import { projects } from "../../data/Projects";
 import ProjectModal from "../modals/ProjectModal";
+import { BASE_URL } from "../../data/Constants";
 
 const StyledSection = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -109,7 +110,7 @@ const ProjectsSection = () => {
                 <MediaContainer onClick={() => setSelectedProject(project)}>
                   {project.thumbnailUrl ? (
                     <img
-                      src={project.thumbnailUrl}
+                      src={`${BASE_URL}/${project.thumbnailUrl}`}
                       alt={`${project.title} thumbnail`}
                       style={{
                         width: '100%',

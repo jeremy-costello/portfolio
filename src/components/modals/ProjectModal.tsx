@@ -5,6 +5,7 @@ import { Close as CloseIcon, OpenInNew as OpenInNewIcon } from '@mui/icons-mater
 import { styled } from '@mui/material/styles';
 import ReactCompareImage from "react-compare-image";
 import CesiumViewer from '../extra/CesiumViewer';
+import { BASE_URL } from '../../data/Constants';
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({'& .MuiDialog-paper':{backgroundColor:theme.palette.grey[900],borderRadius:theme.spacing(2),maxWidth:1000,margin:theme.spacing(2)}}));
 const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({color:'white',fontWeight:'bold',fontSize:'1.5rem',paddingRight:theme.spacing(8),position:'relative'}));
@@ -30,7 +31,7 @@ const ProjectModal = ({ project, onClose }: { project:any; onClose:()=>void }) =
         ):project.mediaUrls&&project.mediaUrls.length>0?(
           <MediaContainer>
             {project.mediaType==="video"?(
-              <video src={project.mediaUrls[0]} controls autoPlay style={{width:'100%',borderRadius:8}}/>
+              <video src={`${BASE_URL}/${project.mediaUrls[0]}`} controls autoPlay style={{width:'100%',borderRadius:8}}/>
             ):project.mediaUrls.length===2?(
               <Box
                 sx={{
@@ -41,15 +42,15 @@ const ProjectModal = ({ project, onClose }: { project:any; onClose:()=>void }) =
                 }}
               >
                 <ReactCompareImage
-                  leftImage={project.mediaUrls[1]}
-                  rightImage={project.mediaUrls[0]}
+                  leftImage={`${BASE_URL}/${project.mediaUrls[1]}`}
+                  rightImage={`${BASE_URL}/${project.mediaUrls[0]}`}
                   sliderLineWidth={3}
                   sliderLineColor="#06b6d4"
                   handleSize={40}
                 />
               </Box>
             ):(
-              <img src={project.mediaUrls[0]} alt={project.title} style={{width:'100%',borderRadius:8}}/>
+              <img src={`${BASE_URL}/${project.mediaUrls[0]}`} alt={project.title} style={{width:'100%',borderRadius:8}}/>
             )}
           </MediaContainer>
         ):null}

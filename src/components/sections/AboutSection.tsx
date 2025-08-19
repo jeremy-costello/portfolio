@@ -8,6 +8,7 @@ import {
   CardMedia,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { BASE_URL } from '../../data/Constants';
 
 const StyledSection = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -127,7 +128,7 @@ const AboutSection = () => {
               <StyledCard>
                 <CardMedia
                   component="img"
-                  image="/images/hiking.jpg"
+                  image={`${BASE_URL}/images/hiking.jpg`}
                   alt="Hiking Mount Lafayette"
                   sx={{
                     width: '100%',
