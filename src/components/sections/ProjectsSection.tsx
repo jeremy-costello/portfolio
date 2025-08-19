@@ -1,29 +1,10 @@
-import { ExternalLink, Play } from 'lucide-react';
+import { useState } from "react";
+import { ExternalLink, Play } from "lucide-react";
+import { projects } from "../../data/Projects";
+import ProjectModal from "../modals/ProjectModal";
 
 const ProjectsSection = () => {
-  const projects = [
-    {
-      id: 1,
-      title: "AI-Powered Recommendation System",
-      description: "Built a collaborative filtering system that increased user engagement by 40% using deep learning techniques.",
-      tech: ["Python", "TensorFlow", "AWS", "Redis"],
-      hasVideo: true
-    },
-    {
-      id: 2,
-      title: "Computer Vision Pipeline",
-      description: "Developed an end-to-end object detection system for autonomous vehicles with 95% accuracy.",
-      tech: ["PyTorch", "OpenCV", "CUDA", "Docker"],
-      hasVideo: false
-    },
-    {
-      id: 3,
-      title: "Natural Language Processing Model",
-      description: "Created a sentiment analysis model for social media monitoring with real-time processing capabilities.",
-      tech: ["BERT", "Transformers", "Flask", "MongoDB"],
-      hasVideo: true
-    }
-  ];
+  const [selectedProject, setSelectedProject] = useState<any | null>(null);
 
   return (
     <section id="projects" className="min-h-screen bg-gray-800 py-20">
@@ -31,20 +12,37 @@ const ProjectsSection = () => {
         <h2 className="text-5xl font-bold text-white text-center mb-16">Featured Projects</h2>
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <div key={project.id} className="bg-gray-900 rounded-xl overflow-hidden shadow-2xl hover:shadow-cyan-500/20 transition-all duration-300 hover:-translate-y-2">
-              <div className="relative h-48 bg-gradient-to-r from-cyan-500 to-purple-600 flex items-center justify-center">
-                <div className="text-white text-center">
-                  {project.hasVideo ? (
-                    <div className="flex items-center space-x-2">
+            <div
+              key={project.id}
+              className="bg-gray-900 rounded-xl overflow-hidden shadow-2xl hover:shadow-cyan-500/20 transition-all duration-300 hover:-translate-y-2"
+            >
+              <div
+                className="relative aspect-video flex items-center justify-center cursor-pointer bg-black"
+                onClick={() => setSelectedProject(project)}
+              >
+                {project.thumbnailUrl ? (
+                  <img
+                    src={project.thumbnailUrl}
+                    alt={`${project.title} thumbnail`}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-r from-cyan-500 to-purple-600" />
+                )}
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                  {project.mediaType === "video" || project.mediaType === "gif" ? (
+                    <div className="flex items-center space-x-2 text-white">
                       <Play className="w-8 h-8" />
-                      <span>Video Demo</span>
+                      <span>View Demo</span>
                     </div>
                   ) : (
-                    <span>Project Image</span>
+                    <span className="text-white">View Project</span>
                   )}
                 </div>
-                <div className="absolute inset-0 bg-black bg-opacity-20"></div>
               </div>
+
               <div className="p-6">
                 <h3 className="text-xl font-bold text-white mb-3">{project.title}</h3>
                 <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
@@ -55,15 +53,23 @@ const ProjectsSection = () => {
                     </span>
                   ))}
                 </div>
-                <button className="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                <button
+                  onClick={() => setSelectedProject(project)}
+                  className="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
+                >
                   <ExternalLink className="w-4 h-4 mr-2" />
-                  View Project
+                  More Info
                 </button>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Modal */}
+      {selectedProject && (
+        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      )}
     </section>
   );
 };
