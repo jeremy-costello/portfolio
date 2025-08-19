@@ -1,61 +1,166 @@
-import { ExternalLink, X } from "lucide-react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+  Typography,
+  Box,
+  Chip,
+  Button,
+} from '@mui/material';
+import {
+  Close as CloseIcon,
+  OpenInNew as OpenInNewIcon,
+} from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
+import ReactCompareImage from "react-compare-image";
+
+const StyledDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialog-paper': {
+    backgroundColor: theme.palette.grey[900],
+    borderRadius: theme.spacing(2),
+    maxWidth: 1000,
+    margin: theme.spacing(2),
+  },
+}));
+
+const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
+  color: 'white',
+  fontWeight: 'bold',
+  fontSize: '1.5rem',
+  paddingRight: theme.spacing(8), // Make room for close button
+  position: 'relative',
+}));
+
+const CloseButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  right: theme.spacing(1),
+  top: theme.spacing(1),
+  color: theme.palette.grey[400],
+  '&:hover': {
+    color: 'white',
+  },
+}));
+
+const MediaContainer = styled(Box)(({ theme }) => ({
+  marginBottom: theme.spacing(3),
+  borderRadius: theme.spacing(1),
+  overflow: 'hidden',
+  '& video': {
+    width: '100%',
+    borderRadius: theme.spacing(1),
+  },
+  '& img': {
+    width: '100%',
+    borderRadius: theme.spacing(1),
+  },
+}));
+
+const TechChip = styled(Chip)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[700],
+  color: theme.palette.cyan?.main || theme.palette.info.main,
+  fontSize: '0.75rem',
+  height: 24,
+}));
 
 const ProjectModal = ({ project, onClose }: { project: any; onClose: () => void }) => {
   if (!project) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-      <div className="bg-gray-900 rounded-2xl shadow-xl max-w-5xl w-full p-6 relative">
-        {/* Close button */}
-        <button
-          className="absolute top-3 right-3 text-gray-400 hover:text-white"
-          onClick={onClose}
-        >
-          <X className="w-6 h-6" />
-        </button>
-
-        {/* Title */}
-        <h2 className="text-2xl font-bold text-white mb-4">{project.title}</h2>
-
+    <StyledDialog
+      open={!!project}
+      onClose={onClose}
+      maxWidth="md"
+      fullWidth
+    >
+      <StyledDialogTitle>
+        {project.title}
+        <CloseButton onClick={onClose} aria-label="close">
+          <CloseIcon />
+        </CloseButton>
+      </StyledDialogTitle>
+      
+      <DialogContent sx={{ p: 3 }}>
         {/* Media */}
-        {project.mediaUrl && (
-          <div className="mb-4 rounded-lg overflow-hidden">
+        {project.mediaUrls && project.mediaUrls.length > 0 && (
+          <MediaContainer>
             {project.mediaType === "video" ? (
-              <video src={project.mediaUrl} controls autoPlay className="w-full rounded-lg" />
+              <video
+                src={project.mediaUrls[0]}
+                controls
+                autoPlay
+                style={{ width: '100%', borderRadius: 8 }}
+              />
+            ) : project.mediaUrls.length === 2 ? (
+              <Box sx={{ width: '100%', borderRadius: 1, overflow: 'hidden' }}>
+                <ReactCompareImage
+                  leftImage={project.mediaUrls[1]}
+                  rightImage={project.mediaUrls[0]}
+                  sliderLineWidth={3}
+                  sliderLineColor="#06b6d4"
+                  handleSize={40}
+                />
+              </Box>
             ) : (
-              <img src={project.mediaUrl} alt={project.title} className="w-full rounded-lg" />
+              <img
+                src={project.mediaUrls[0]}
+                alt={project.title}
+                style={{ width: '100%', borderRadius: 8 }}
+              />
             )}
-          </div>
+          </MediaContainer>
         )}
 
         {/* Description */}
-        <p className="text-gray-300 mb-4">{project.details || project.description}</p>
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            color: 'grey.300',
+            mb: 3,
+            lineHeight: 1.6
+          }}
+        >
+          {project.details || project.description}
+        </Typography>
 
         {/* Tech stack */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
           {project.tech.map((tech: string) => (
-            <span key={tech} className="px-2 py-1 bg-gray-700 text-cyan-400 text-xs rounded">
-              {tech}
-            </span>
+            <TechChip key={tech} label={tech} size="small" />
           ))}
-        </div>
+        </Box>
 
         {/* Code link or note */}
         {project.codeLink ? (
-          <a
+          <Button
             href={project.codeLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
+            startIcon={<OpenInNewIcon />}
+            sx={{
+              color: 'cyan.main',
+              textTransform: 'none',
+              '&:hover': {
+                color: 'cyan.light',
+                backgroundColor: 'rgba(0, 188, 212, 0.08)',
+              },
+            }}
           >
-            <ExternalLink className="w-4 h-4 mr-2" />
             View Code
-          </a>
+          </Button>
         ) : (
-          <span className="text-gray-400 italic">{project.codeNote || "Code unavailable"}</span>
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              color: 'grey.400',
+              fontStyle: 'italic'
+            }}
+          >
+            {project.codeNote || "Code unavailable"}
+          </Typography>
         )}
-      </div>
-    </div>
+      </DialogContent>
+    </StyledDialog>
   );
 };
 

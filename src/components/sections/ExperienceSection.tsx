@@ -1,3 +1,83 @@
+import {
+  Box,
+  Typography,
+  Container,
+  Card,
+  CardContent,
+  Chip,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+const StyledSection = styled(Box)(({ theme }) => ({
+  minHeight: '100vh',
+  backgroundColor: theme.palette.grey[900],
+  paddingTop: theme.spacing(10),
+  paddingBottom: theme.spacing(10),
+}));
+
+const TimelineContainer = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  maxWidth: 800,
+  margin: '0 auto',
+}));
+
+const TimelineItem = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  marginBottom: theme.spacing(6),
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: theme.spacing(3),
+  '&:last-child': {
+    marginBottom: 0,
+  },
+}));
+
+const TimelineDot = styled(Box)(({ theme }) => ({
+  width: 16,
+  height: 16,
+  backgroundColor: theme.palette.cyan?.main || theme.palette.info.main,
+  borderRadius: '50%',
+  marginTop: theme.spacing(1),
+  flexShrink: 0,
+  boxShadow: `0 0 0 4px ${theme.palette.cyan?.main}33` || `0 0 0 4px ${theme.palette.info.main}33`,
+}));
+
+const TimelineLine = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  left: 8,
+  top: 32,
+  width: 2,
+  height: 80,
+  backgroundColor: theme.palette.grey[700],
+}));
+
+const ExperienceCard = styled(Card)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[800],
+  borderRadius: theme.spacing(1.5),
+  transition: 'background-color 0.3s ease',
+  '&:hover': {
+    backgroundColor: theme.palette.grey[750],
+  },
+  flex: 1,
+}));
+
+const TechIconBox = styled(Box)(({ theme }) => ({
+  width: 48,
+  height: 48,
+  backgroundColor: theme.palette.grey[700],
+  borderRadius: theme.spacing(1),
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: '1.5rem',
+  cursor: 'pointer',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    backgroundColor: theme.palette.grey[600],
+    transform: 'scale(1.1)',
+  },
+}));
+
 const ExperienceSection = () => {
   const experiences = [
     {
@@ -24,40 +104,95 @@ const ExperienceSection = () => {
   ];
 
   return (
-    <section id="experience" className="min-h-screen bg-gray-900 py-20">
-      <div className="container mx-auto px-6">
-        <h2 className="text-5xl font-bold text-white text-center mb-16">Experience</h2>
-        <div className="max-w-4xl mx-auto">
+    <StyledSection id="experience">
+      <Container maxWidth="lg">
+        <Typography 
+          variant="h2" 
+          component="h2" 
+          sx={{ 
+            fontWeight: 'bold', 
+            color: 'white',
+            textAlign: 'center',
+            mb: 8
+          }}
+        >
+          Experience
+        </Typography>
+        
+        <TimelineContainer>
           {experiences.map((exp, index) => (
-            <div key={index} className="relative mb-12 last:mb-0">
-              <div className="flex items-start space-x-6">
-                <div className="flex-shrink-0 w-4 h-4 bg-cyan-500 rounded-full mt-2 shadow-lg shadow-cyan-500/50"></div>
-                <div className="bg-gray-800 rounded-xl p-8 flex-grow hover:bg-gray-750 transition-colors">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                    <div>
-                      <h3 className="text-2xl font-bold text-white">{exp.title}</h3>
-                      <p className="text-cyan-400 font-medium">{exp.company}</p>
-                    </div>
-                    <span className="text-gray-400 text-sm mt-2 md:mt-0">{exp.duration}</span>
-                  </div>
-                  <p className="text-gray-300 mb-6">{exp.description}</p>
-                  <div className="flex flex-wrap gap-3">
+            <TimelineItem key={index}>
+              <TimelineDot />
+              {index < experiences.length - 1 && <TimelineLine />}
+              
+              <ExperienceCard>
+                <CardContent sx={{ p: 4 }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: { xs: 'column', md: 'row' },
+                    alignItems: { md: 'center' },
+                    justifyContent: 'space-between',
+                    mb: 3
+                  }}>
+                    <Box>
+                      <Typography 
+                        variant="h4" 
+                        sx={{ 
+                          fontWeight: 'bold', 
+                          color: 'white',
+                          mb: 1
+                        }}
+                      >
+                        {exp.title}
+                      </Typography>
+                      <Typography 
+                        variant="h6" 
+                        sx={{ 
+                          color: 'cyan.main',
+                          fontWeight: 'medium'
+                        }}
+                      >
+                        {exp.company}
+                      </Typography>
+                    </Box>
+                    <Chip 
+                      label={exp.duration}
+                      size="small"
+                      sx={{ 
+                        color: 'grey.400',
+                        backgroundColor: 'transparent',
+                        border: '1px solid',
+                        borderColor: 'grey.600',
+                        mt: { xs: 2, md: 0 }
+                      }}
+                    />
+                  </Box>
+                  
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      color: 'grey.300',
+                      mb: 3,
+                      lineHeight: 1.6
+                    }}
+                  >
+                    {exp.description}
+                  </Typography>
+                  
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
                     {exp.technologies.map((icon, idx) => (
-                      <div key={idx} className="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center text-2xl hover:bg-gray-600 transition-colors cursor-pointer hover:scale-110 transform">
+                      <TechIconBox key={idx}>
                         {icon}
-                      </div>
+                      </TechIconBox>
                     ))}
-                  </div>
-                </div>
-              </div>
-              {index < experiences.length - 1 && (
-                <div className="absolute left-2 top-8 w-0.5 h-20 bg-gray-700"></div>
-              )}
-            </div>
+                  </Box>
+                </CardContent>
+              </ExperienceCard>
+            </TimelineItem>
           ))}
-        </div>
-      </div>
-    </section>
+        </TimelineContainer>
+      </Container>
+    </StyledSection>
   );
 };
 

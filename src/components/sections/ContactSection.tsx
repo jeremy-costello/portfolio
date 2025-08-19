@@ -1,5 +1,73 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
+import {
+  Box,
+  Typography,
+  Container,
+  Grid,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  IconButton,
+  Alert,
+} from '@mui/material';
+import {
+  Email as EmailIcon,
+  Phone as PhoneIcon,
+  LocationOn as LocationOnIcon,
+  GitHub as GitHubIcon,
+  LinkedIn as LinkedInIcon,
+} from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
+
+const StyledSection = styled(Box)(({ theme }) => ({
+  minHeight: '100vh',
+  backgroundColor: theme.palette.grey[900],
+  paddingTop: theme.spacing(10),
+  paddingBottom: theme.spacing(10),
+}));
+
+const ContactCard = styled(Card)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[800],
+  borderRadius: theme.spacing(1.5),
+  padding: theme.spacing(4),
+}));
+
+const ContactInfoBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(2),
+  marginBottom: theme.spacing(3),
+}));
+
+const IconContainer = styled(Box)(({ theme, bgcolor }: { theme?: any; bgcolor: string }) => ({
+  width: 48,
+  height: 48,
+  backgroundColor: bgcolor,
+  borderRadius: theme.spacing(1),
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const GradientButton = styled(Button)(({ theme }) => ({
+  background: 'linear-gradient(45deg, #00bcd4 30%, #9c27b0 90%)',
+  '&:hover': {
+    background: 'linear-gradient(45deg, #00acc1 30%, #8e24aa 90%)',
+    transform: 'scale(1.05)',
+  },
+  transition: 'all 0.3s ease',
+  fontWeight: 'medium',
+  padding: theme.spacing(1.5, 3),
+}));
+
+const SocialIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[700],
+  '&:hover': {
+    backgroundColor: theme.palette.grey[600],
+  },
+  transition: 'background-color 0.3s ease',
+}));
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -7,14 +75,16 @@ const ContactSection = () => {
     email: '',
     message: ''
   });
+  const [showAlert, setShowAlert] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     console.log('Form submitted:', formData);
-    // Handle form submission here - you can integrate with email service
-    alert('Message sent! (This is a demo)');
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -22,109 +92,184 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="min-h-screen bg-gray-900 py-20">
-      <div className="container mx-auto px-6">
-        <h2 className="text-5xl font-bold text-white text-center mb-16">Get In Touch</h2>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          
+    <StyledSection id="contact">
+      <Container maxWidth="lg">
+        <Typography 
+          variant="h2" 
+          component="h2" 
+          sx={{ 
+            fontWeight: 'bold', 
+            color: 'white',
+            textAlign: 'center',
+            mb: 8
+          }}
+        >
+          Get In Touch
+        </Typography>
+        
+        {showAlert && (
+          <Alert severity="success" sx={{ mb: 4 }}>
+            Message sent! (This is a demo)
+          </Alert>
+        )}
+        
+        <Grid container spacing={6} sx={{ maxWidth: '1200px', mx: 'auto' }}>
           {/* Contact Info */}
-          <div className="space-y-8">
-            <div className="text-gray-300 text-lg leading-relaxed">
-              <p className="mb-6">
+          <Grid size={{
+            xs: 12,
+            lg: 6
+          }}>
+            <Box sx={{ mb: 4 }}>
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  color: 'grey.300', 
+                  lineHeight: 1.6,
+                  mb: 3
+                }}
+              >
                 I'm always interested in new opportunities and collaborations. 
                 Whether you have a project in mind or just want to chat about ML, feel free to reach out!
-              </p>
-            </div>
+              </Typography>
+            </Box>
             
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-cyan-600 rounded-lg flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <p className="text-white font-medium">Email</p>
-                  <p className="text-gray-400">your.email@example.com</p>
-                </div>
-              </div>
+            <Box sx={{ mb: 4 }}>
+              <ContactInfoBox>
+                <IconContainer bgcolor="#00bcd4">
+                  <EmailIcon sx={{ color: 'white' }} />
+                </IconContainer>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ color: 'white', fontWeight: 'medium' }}>
+                    Email
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'grey.400' }}>
+                    your.email@example.com
+                  </Typography>
+                </Box>
+              </ContactInfoBox>
               
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <p className="text-white font-medium">Phone</p>
-                  <p className="text-gray-400">+1 (555) 123-4567</p>
-                </div>
-              </div>
+              <ContactInfoBox>
+                <IconContainer bgcolor="#9c27b0">
+                  <PhoneIcon sx={{ color: 'white' }} />
+                </IconContainer>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ color: 'white', fontWeight: 'medium' }}>
+                    Phone
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'grey.400' }}>
+                    +1 (555) 123-4567
+                  </Typography>
+                </Box>
+              </ContactInfoBox>
               
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-pink-600 rounded-lg flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <p className="text-white font-medium">Location</p>
-                  <p className="text-gray-400">Your City, Country</p>
-                </div>
-              </div>
-            </div>
+              <ContactInfoBox>
+                <IconContainer bgcolor="#e91e63">
+                  <LocationOnIcon sx={{ color: 'white' }} />
+                </IconContainer>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ color: 'white', fontWeight: 'medium' }}>
+                    Location
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'grey.400' }}>
+                    Your City, Country
+                  </Typography>
+                </Box>
+              </ContactInfoBox>
+            </Box>
             
-            <div className="flex space-x-4 pt-8">
-              <a href="#" className="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-gray-600 transition-colors">
-                <Github className="w-6 h-6 text-white" />
-              </a>
-              <a href="#" className="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-gray-600 transition-colors">
-                <Linkedin className="w-6 h-6 text-white" />
-              </a>
-            </div>
-          </div>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <SocialIconButton href="#" aria-label="GitHub">
+                <GitHubIcon sx={{ color: 'white' }} />
+              </SocialIconButton>
+              <SocialIconButton href="#" aria-label="LinkedIn">
+                <LinkedInIcon sx={{ color: 'white' }} />
+              </SocialIconButton>
+            </Box>
+          </Grid>
           
           {/* Contact Form */}
-          <div className="bg-gray-800 rounded-xl p-8">
-            <div className="space-y-6">
-              <div>
-                <label className="block text-white font-medium mb-2">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-colors"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-white font-medium mb-2">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-colors"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-white font-medium mb-2">Message</label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={5}
-                  className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-colors resize-none"
-                />
-              </div>
-              
-              <button
-                onClick={handleSubmit}
-                className="w-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-medium py-3 px-6 rounded-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
-              >
-                Send Message
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          <Grid size={{
+            xs: 12,
+            lg: 6
+          }}>
+            <ContactCard>
+              <CardContent>
+                <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <TextField
+                    fullWidth
+                    label="Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        backgroundColor: 'grey.700',
+                        '& input': { color: 'white' },
+                        '&:hover fieldset': { borderColor: 'cyan.main' },
+                        '&.Mui-focused fieldset': { borderColor: 'cyan.main' },
+                      },
+                      '& .MuiInputLabel-root': { color: 'white' },
+                      '& .MuiInputLabel-root.Mui-focused': { color: 'cyan.main' },
+                    }}
+                  />
+                  
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        backgroundColor: 'grey.700',
+                        '& input': { color: 'white' },
+                        '&:hover fieldset': { borderColor: 'cyan.main' },
+                        '&.Mui-focused fieldset': { borderColor: 'cyan.main' },
+                      },
+                      '& .MuiInputLabel-root': { color: 'white' },
+                      '& .MuiInputLabel-root.Mui-focused': { color: 'cyan.main' },
+                    }}
+                  />
+                  
+                  <TextField
+                    fullWidth
+                    label="Message"
+                    name="message"
+                    multiline
+                    rows={5}
+                    value={formData.message}
+                    onChange={handleChange}
+                    variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        backgroundColor: 'grey.700',
+                        '& textarea': { color: 'white' },
+                        '&:hover fieldset': { borderColor: 'cyan.main' },
+                        '&.Mui-focused fieldset': { borderColor: 'cyan.main' },
+                      },
+                      '& .MuiInputLabel-root': { color: 'white' },
+                      '& .MuiInputLabel-root.Mui-focused': { color: 'cyan.main' },
+                    }}
+                  />
+                  
+                  <GradientButton
+                    type="submit"
+                    variant="contained"
+                    size="large"
+                    fullWidth
+                  >
+                    Send Message
+                  </GradientButton>
+                </Box>
+              </CardContent>
+            </ContactCard>
+          </Grid>
+        </Grid>
+      </Container>
+    </StyledSection>
   );
 };
 

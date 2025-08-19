@@ -1,9 +1,35 @@
-
 import { useState, useEffect } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  Container,
+  useScrollTrigger,
+  Slide
+} from '@mui/material';
+import { styled, alpha } from '@mui/material/styles';
 
-// Navigation Component
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  backgroundColor: alpha(theme.palette.grey[900], 0.9),
+  backdropFilter: 'blur(8px)',
+  borderBottom: `1px solid ${theme.palette.grey[700]}`,
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.common.white,
+  '&:hover': {
+    color: theme.palette.cyan?.main || theme.palette.info.main,
+  },
+  '&.active': {
+    color: theme.palette.cyan?.main || theme.palette.info.main,
+  },
+}));
+
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const trigger = useScrollTrigger();
 
   const navItems = [
     { id: 'home', label: 'Home' },
@@ -14,7 +40,7 @@ const Navigation = () => {
     { id: 'contact', label: 'Contact' }
   ];
 
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -40,26 +66,37 @@ const Navigation = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-sm border-b border-gray-700">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex justify-between items-center">
-          <div className="text-xl font-bold text-white">Jeremy Costello</div>
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`transition-colors hover:text-cyan-400 ${
-                  activeSection === item.id ? 'text-cyan-400' : 'text-white'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </nav>
+    <Slide appear={false} direction="down" in={!trigger}>
+      <StyledAppBar position="fixed">
+        <Container maxWidth="xl">
+          <Toolbar sx={{ justifyContent: 'space-between', py: 1 }}>
+            <Typography 
+              variant="h6" 
+              component="div" 
+              sx={{ 
+                fontWeight: 'bold', 
+                color: 'white' 
+              }}
+            >
+              Jeremy Costello
+            </Typography>
+            
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 3 }}>
+              {navItems.map((item) => (
+                <StyledButton
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={activeSection === item.id ? 'active' : ''}
+                  sx={{ textTransform: 'none' }}
+                >
+                  {item.label}
+                </StyledButton>
+              ))}
+            </Box>
+          </Toolbar>
+        </Container>
+      </StyledAppBar>
+    </Slide>
   );
 };
 

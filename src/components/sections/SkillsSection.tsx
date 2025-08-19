@@ -1,7 +1,70 @@
 import { useState } from 'react';
+import {
+  Box,
+  Typography,
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  LinearProgress,
+  Tooltip,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+const StyledSection = styled(Box)(({ theme }) => ({
+  minHeight: '100vh',
+  backgroundColor: theme.palette.grey[800],
+  paddingTop: theme.spacing(10),
+  paddingBottom: theme.spacing(10),
+}));
+
+const SkillCard = styled(Card)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[700],
+  borderRadius: theme.spacing(1.5),
+  cursor: 'pointer',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    backgroundColor: theme.palette.grey[600],
+    transform: 'scale(1.1)',
+    boxShadow: `0 8px 24px ${theme.palette.cyan?.main}30` || `0 8px 24px ${theme.palette.info.main}30`,
+  },
+}));
+
+const SkillIcon = styled(Box)({
+  width: 80,
+  height: 80,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: '3rem',
+  margin: '0 auto',
+});
+
+const StyledTooltip = styled(Tooltip)(({ theme }) => ({
+  '& .MuiTooltip-tooltip': {
+    backgroundColor: theme.palette.grey[900],
+    borderRadius: theme.spacing(1),
+    padding: theme.spacing(2),
+    boxShadow: theme.shadows[20],
+    minWidth: 200,
+  },
+  '& .MuiTooltip-arrow': {
+    color: theme.palette.grey[900],
+  },
+}));
+
+const GradientProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 8,
+  borderRadius: 4,
+  backgroundColor: theme.palette.grey[600],
+  '& .MuiLinearProgress-bar': {
+    background: 'linear-gradient(45deg, #00bcd4 30%, #9c27b0 90%)',
+    borderRadius: 4,
+  },
+}));
 
 const SkillsSection = () => {
-  const [hoveredSkill, setHoveredSkill] = useState(null);
+  const [hoveredSkill, setHoveredSkill] = useState<any>(null);
 
   const skills = [
     { name: "Python", level: 95, icon: "🐍" },
@@ -18,42 +81,78 @@ const SkillsSection = () => {
     { name: "Apache Spark", level: 75, icon: "⚡" }
   ];
 
+  const TooltipContent = ({ skill }: { skill: any }) => (
+    <Box>
+      <Typography variant="subtitle1" sx={{ color: 'white', fontWeight: 'medium', mb: 1 }}>
+        {skill.name}
+      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <GradientProgress
+          variant="determinate"
+          value={skill.level}
+          sx={{ flex: 1 }}
+        />
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            color: 'cyan.main',
+            fontWeight: 'medium',
+            minWidth: '3ch'
+          }}
+        >
+          {skill.level}%
+        </Typography>
+      </Box>
+    </Box>
+  );
+
   return (
-    <section id="skills" className="min-h-screen bg-gray-800 py-20">
-      <div className="container mx-auto px-6">
-        <h2 className="text-5xl font-bold text-white text-center mb-16">Technical Skills</h2>
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-6xl mx-auto">
+    <StyledSection id="skills">
+      <Container maxWidth="lg">
+        <Typography 
+          variant="h2" 
+          component="h2" 
+          sx={{ 
+            fontWeight: 'bold', 
+            color: 'white',
+            textAlign: 'center',
+            mb: 8
+          }}
+        >
+          Technical Skills
+        </Typography>
+        
+        <Grid container spacing={4} sx={{ maxWidth: '1200px', mx: 'auto' }}>
           {skills.map((skill) => (
-            <div
-              key={skill.name}
-              className="relative group cursor-pointer"
-              onMouseEnter={() => setHoveredSkill(skill)}
-              onMouseLeave={() => setHoveredSkill(null)}
-            >
-              <div className="w-20 h-20 bg-gray-700 rounded-xl flex items-center justify-center text-3xl hover:bg-gray-600 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/30">
-                {skill.icon}
-              </div>
-              
-              {hoveredSkill?.name === skill.name && (
-                <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-gray-900 rounded-lg p-4 shadow-2xl z-10 min-w-max">
-                  <div className="text-white font-medium mb-2">{skill.name}</div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-24 h-2 bg-gray-600 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full transition-all duration-500"
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
-                    </div>
-                    <span className="text-cyan-400 text-sm font-medium">{skill.level}%</span>
-                  </div>
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              )}
-            </div>
+            <Grid key={skill.name} size={{
+              xs: 6,
+              sm: 4,
+              md: 3,
+              lg: 2
+            }}>
+              <StyledTooltip
+                title={<TooltipContent skill={skill} />}
+                arrow
+                placement="top"
+                enterDelay={300}
+                leaveDelay={200}
+              >
+                <SkillCard
+                  onMouseEnter={() => setHoveredSkill(skill)}
+                  onMouseLeave={() => setHoveredSkill(null)}
+                >
+                  <CardContent sx={{ p: 2 }}>
+                    <SkillIcon>
+                      {skill.icon}
+                    </SkillIcon>
+                  </CardContent>
+                </SkillCard>
+              </StyledTooltip>
+            </Grid>
           ))}
-        </div>
-      </div>
-    </section>
+        </Grid>
+      </Container>
+    </StyledSection>
   );
 };
 
