@@ -1,8 +1,9 @@
 // CesiumViewer.tsx
 import React, { useEffect, useRef, useState } from "react";
+import { BASE_URL } from "../../data/Constants";
 
-const TERRAIN_URL = "/cesium/terrain";
-const TILESET_URL = "/cesium/tiles/tileset.json";
+const TERRAIN_URL = `${BASE_URL}/cesium/terrain`;
+const TILESET_URL = `${BASE_URL}/cesium/tiles/tileset.json`;
 
 const CesiumViewer: React.FC = () => {
   const cesiumRef = useRef<HTMLDivElement | null>(null);
