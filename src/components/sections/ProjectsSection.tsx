@@ -68,10 +68,15 @@ const OverlayContent = styled(Box)(({ theme }) => ({
 }));
 
 const TechChip = styled(Chip)(({ theme }) => ({
-  backgroundColor: theme.palette.grey[700],
-  color: theme.palette.cyan?.main || theme.palette.info.main,
-  fontSize: '0.75rem',
-  height: 24,
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  fontSize: '0.875rem',
+  height: 28,
+  fontWeight: 500,
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+  },
+  transition: 'background-color 0.3s ease',
 }));
 
 const ProjectsSection = () => {

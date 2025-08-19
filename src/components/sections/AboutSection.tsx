@@ -46,7 +46,9 @@ const BackgroundCard = styled(Box)(({ theme }) => ({
 const StyledChip = styled(Chip)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   color: theme.palette.common.white,
-  fontWeight: 'medium',
+  fontWeight: 500,
+  fontSize: '1rem',
+  height: 40,
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },

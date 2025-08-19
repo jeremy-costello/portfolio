@@ -71,9 +71,9 @@ const CesiumViewer: React.FC = () => {
         const tileset = await Cesium.Cesium3DTileset.fromUrl(TILESET_URL);
         viewer.scene.primitives.add(tileset);
         setLoadingProgress(80);
-        const heading = 180 * Math.PI / 90;
+        const heading = 180 * Math.PI / 72;
         const pitch = -0.2;
-        const range = 500;
+        const range = 2000;
         await viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(heading, pitch, range));
       } catch (e) {
         console.error("Failed to load tileset:", e);
