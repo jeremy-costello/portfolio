@@ -27,14 +27,16 @@ const HeroSection = () => {
       </div>
 
       <div className={`text-center z-10 transition-all duration-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        {/* Headshot placeholder with glow effect */}
+        {/* Headshot with glow effect */}
         <div className="relative mb-8 inline-block">
-          <div className="w-48 h-48 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full p-1 shadow-2xl animate-pulse">
-            <div className="w-full h-full bg-gray-300 rounded-full flex items-center justify-center text-gray-600 text-sm">
-              Your Photo Here
-            </div>
+          <div className="w-64 h-64 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full p-1 shadow-2xl">
+            <img
+              src="/images/headshot.jpg"
+              alt="Headshot"
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 blur-xl opacity-30 animate-pulse"></div>
+          <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 blur-xl opacity-30 animate-pulse"></div>
         </div>
 
         <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 animate-gradient">
@@ -43,7 +45,7 @@ const HeroSection = () => {
         <h2 className="text-2xl md:text-3xl text-gray-300 mb-8 font-light">
           ML/AI Engineer
         </h2>
-        <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed px-12">
           Transforming data into intelligent solutions through cutting-edge machine learning and AI technologies
         </p>
       </div>

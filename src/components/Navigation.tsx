@@ -43,7 +43,7 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-sm border-b border-gray-700">
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <div className="text-xl font-bold text-white">ML Portfolio</div>
+          <div className="text-xl font-bold text-white">Jeremy Costello</div>
           <div className="hidden md:flex space-x-8">
             {navItems.map((item) => (
               <button
