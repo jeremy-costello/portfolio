@@ -48,7 +48,7 @@ export const projects = [
     id: 5,
     title: "3D Terrain and Building Generation",
     description: "Docker pipeline to generate 3D quantized mesh terrain and 3D building tiles.",
-    details: "Built a Docker pipeline to generate 3D quanitzed mesh terrain and 3D building tiles. Based on a bounding box, downloads digital elevation map from one of various STAC APIs and downloads building footprints from Overture Maps. Generates 3D building tiles from a created PostGIS database, generates 3D quantized mesh terrain, and serves the outputs through nginx on a CesiumUS globe.",
+    details: "Built a Docker pipeline to generate 3D quanitzed mesh terrain and 3D building tiles. Based on a bounding box, downloads digital elevation map from one of various STAC APIs and downloads building footprints from Overture Maps. Generates 3D building tiles from a created PostGIS database, generates 3D quantized mesh terrain, and serves the outputs through nginx on a CesiumJS globe.",
     tech: ["Python", "Bash", "Docker", "nginx", "PostgreSQL", "PostGIS", "CesiumJS"],
     thumbnailUrl: "/projects/cesium/thumbnail.jpg",
     mediaType: "component",

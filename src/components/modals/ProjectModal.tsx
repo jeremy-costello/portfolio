@@ -36,9 +36,8 @@ const ProjectModal = ({ project, onClose }: { project:any; onClose:()=>void }) =
               <Box
                 sx={{
                   width: '100%',
-                  aspectRatio: '16/9', // maintains ratio
                   borderRadius: 1,
-                  overflow: 'hidden',
+                  overflow: 'hidden'
                 }}
               >
                 <ReactCompareImage
