@@ -54,7 +54,7 @@ export const projects = [
     mediaType: "component",
     codeLink: "https://github.com/jeremy-costello/stac-to-3d",
   },
-    {
+  {
     id: 6,
     title: "OGC API - DGGS Draft Semantic Search",
     description: "Semantic search app running completely in the browser.",
@@ -65,5 +65,16 @@ export const projects = [
     mediaUrls: ["/projects/dggs-draft-search/demo-picture.jpg"],
     demoLink: "https://jeremy-costello.github.io/dggs-draft-search",
     codeLink: "https://github.com/jeremy-costello/dggs-draft-search",
+  },
+  {
+    id: 7,
+    title: "Image-Text Search and Duplicate Detection",
+    description: "Search an image database with text prompts and detect similar images. Powered by OpenAI's CLIP model.",
+    details: "Built a React webapp to search an image database with text prompts and detect similar images. Microservices architecture that is spun up in one command with Docker Compose. Created my own vector database capabilities in PostgreSQL by encoding vectors as binary blobs using NumPy.",
+    tech: ["Python", "Docker", "Flask", "REST APIs", "Poetry", "PostgreSQL", "JS/TS", "React"],
+    thumbnailUrl: "/projects/clip-duplicates/thumbnail.jpg",
+    mediaType: "video",
+    mediaUrls: ["/projects/clip-duplicates/demo-video.mp4"],
+    codeLink: "https://github.com/jeremy-costello/clip-duplicates",
   },
 ];
