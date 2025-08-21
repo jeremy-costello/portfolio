@@ -77,4 +77,27 @@ export const projects = [
     mediaUrls: ["/projects/clip-duplicates/demo-video.mp4"],
     codeLink: "https://github.com/jeremy-costello/clip-duplicates",
   },
+  {
+    id: 8,
+    title: "Reinforcement Learning for Topic Models",
+    description: "State-of-the-art topic modeling algorithm using reinforcement learning.",
+    details: "We apply reinforcement learning techniques to topic modeling by replacing the variational autoencoder in ProdLDA with a continuous action space reinforcement learning policy. Experiments are performed on 11 data sets. Our unsupervised model outperforms all other unsupervised models and performs on par with or better than most models using supervised labeling.",
+    tech: ["Python", "PyTorch", "Hugging Face", "NumPy", "pandas"],
+    thumbnailUrl: "/projects/rl-for-tm/thumbnail.jpg",
+    mediaType: "image",
+    mediaUrls: ["/projects/rl-for-tm/demo-picture.jpg"],
+    codeLink: "https://github.com/jeremy-costello/rl-for-topic-models",
+    pubLink: "https://aclanthology.org/2023.findings-acl.265/"
+  },
+  {
+    id: 9,
+    title: "Oil Reservoir Production Logging Tool",
+    description: "Calculate the oil flow in and out of a multi-zone reservoir using Darcy's Law.",
+    details: "Solved a system of equations using Darcy's Law and used the resultant equations to calculate the oil flow in and out of a multi-zone reservoir. This analytical method is much faster than similar numerical methods.",
+    tech: ["Python", "NumPy", "pandas"],
+    thumbnailUrl: "/projects/reservoir-plt/picture.png",
+    mediaType: "image",
+    mediaUrls: ["/projects/reservoir-plt/picture.png"],
+    codeLink: "https://github.com/jeremy-costello/reservoir_plt"
+  },
 ];
